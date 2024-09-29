@@ -6,7 +6,12 @@
 class OurPages_GraphView : public IOurPage
 {
 public:
+  OurPages_GraphView(OurSavedReadings::ReadingTypes readingType,  const char* pageName);
   void drawPage(TFT_eSPI& tft, OurSavedReadings& ourSavedTemperatures) override;
+
+private:
+  OurSavedReadings::ReadingTypes m_readingType;
+  std::string m_pageName;
 };
 
 #endif // _OURPAGES_GRAPHVIEW_H_

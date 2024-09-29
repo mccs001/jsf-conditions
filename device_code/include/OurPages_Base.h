@@ -3,7 +3,7 @@
 
 #include <TFT_eSPI.h>
 
-class OurSavedReadings;
+#include "OurSavedReadings.h"
 
 struct IOurPage
 {

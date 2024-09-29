@@ -13,6 +13,13 @@
 double last = 0.0;
 int fromtop = 60;
 
+
+OurPages_GraphView::OurPages_GraphView(OurSavedReadings::ReadingTypes readingType,  const char* pageName)
+  : m_readingType(readingType), m_pageName(pageName)
+{
+}
+
+
 void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadings)
 {
 
@@ -41,7 +48,7 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadi
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
 
   // current = v.toDouble();
-  double current = ourSavedReadings.getLatestInsideReading(OurSavedReadings::ReadingTypes::Temperature);
+  double current = ourSavedReadings.getLatestInsideReading(m_readingType);
 
   tft.drawString("PRICE (usd):", 4, fromtop + 4, 2);
   tft.drawString("CHANGE:", 4, fromtop + 32 + 8, 2);
@@ -65,18 +72,18 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadi
   tft.drawString("MIN", 94, 122, 1);
   last = current;
 
-  double minimal = ourSavedReadings.getMinReading(OurSavedReadings::ReadingTypes::Temperature);
-  double maximal = ourSavedReadings.getMaxReading(OurSavedReadings::ReadingTypes::Temperature);
+  double minimal = ourSavedReadings.getMinReading(m_readingType);
+  double maximal = ourSavedReadings.getMaxReading(m_readingType);
 
   int mx = maximal / 2;
   int mi = minimal / 2;
 
-  int n = ourSavedReadings.getNumReadings(OurSavedReadings::ReadingTypes::Temperature);
+  int n = ourSavedReadings.getNumReadings(m_readingType);
   double p[OurSavedReadings::ms_MAX_NUM_READINGS];
 
   for (int i = 0; i < n; i++)
   {
-    int re = ourSavedReadings.getInsideReading(OurSavedReadings::ReadingTypes::Temperature, i) / 2;
+    int re = ourSavedReadings.getInsideReading(m_readingType, i) / 2;
     p[i] = map(re, mi, mx, 0, 100);
 
     // Serial.println(p[i]);
