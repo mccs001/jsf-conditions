@@ -4,9 +4,9 @@
 
 
 /////////////
-// GeneralReadings struct can handle any pairs of inside + outside numeric readings (plus an invalid value)
+// GenericReadings struct can handle any pairs of inside + outside numeric readings (plus an invalid value)
 
-struct GeneralReadings
+struct GenericReadings
 {
   double invalidValue;
   int numReadings;
@@ -17,7 +17,7 @@ struct GeneralReadings
   double currentMinReading;
   double currentMaxReading;
 
-  GeneralReadings(double _invalidValue);
+  GenericReadings(double _invalidValue);
 
   void clearReadings();
   int getNumReadings();
@@ -36,21 +36,21 @@ struct GeneralReadings
 
 
 ////////
-// Implementation of GeneralReadings function
+// Implementation of GenericReadings functions
 
-GeneralReadings::GeneralReadings(double _invalidValue)
+GenericReadings::GenericReadings(double _invalidValue)
     : invalidValue(_invalidValue)
 {
   clearReadings();
 }
 
-void GeneralReadings::clearReadings()
+void GenericReadings::clearReadings()
 {
   numReadings = 0;
   currentMinReading = currentMaxReading = invalidValue;
 }
 
-void GeneralReadings::addReadings(double insideReading, double outsideReading)
+void GenericReadings::addReadings(double insideReading, double outsideReading)
 {
   if (numReadings < OurSavedReadings::ms_MAX_NUM_READINGS)
   {
@@ -87,12 +87,12 @@ void GeneralReadings::addReadings(double insideReading, double outsideReading)
   }
 }
 
-int GeneralReadings::getNumReadings()
+int GenericReadings::getNumReadings()
 {
   return numReadings;
 }
 
-double GeneralReadings::getInsideReading(int index)
+double GenericReadings::getInsideReading(int index)
 {
   if (index >= numReadings)
   {
@@ -102,7 +102,7 @@ double GeneralReadings::getInsideReading(int index)
 
   return insideReadings[index];
 }
-double GeneralReadings::getOutsideReading(int index)
+double GenericReadings::getOutsideReading(int index)
 {
   if (index >= numReadings)
   {
@@ -113,7 +113,7 @@ double GeneralReadings::getOutsideReading(int index)
   return outsideReadings[index];
 }
 
-double GeneralReadings::getLatestInsideReading()
+double GenericReadings::getLatestInsideReading()
 {
   if (numReadings == 0)
   {
@@ -124,7 +124,7 @@ double GeneralReadings::getLatestInsideReading()
   return insideReadings[numReadings - 1];
 }
 
-double GeneralReadings::getLatestOutsideReading()
+double GenericReadings::getLatestOutsideReading()
 {
   if (numReadings == 0)
   {
@@ -135,16 +135,16 @@ double GeneralReadings::getLatestOutsideReading()
   return outsideReadings[numReadings - 1];
 }
 
-double GeneralReadings::getMinReading()
+double GenericReadings::getMinReading()
 {
   return currentMinReading;
 }
-double GeneralReadings::getMaxReading()
+double GenericReadings::getMaxReading()
 {
   return currentMaxReading;
 }
 
-// end of GeneralReadings implementation
+// end of GenericReadings implementation
 ////////
 
 
@@ -152,17 +152,17 @@ double GeneralReadings::getMaxReading()
 
 
 
-// Definition of the internal state held by each GeneralReadings instance
-// we store a GeneralReadings object for each type of reading that we support
+// Definition of the internal state held by each GenericReadings instance
+// we store a GenericReadings object for each type of reading that we support
 struct OurSavedReadings::Impl
 {
   Impl();
-  GeneralReadings allReadingTypes[static_cast<int>(ReadingTypes::Total_Count)];
+  GenericReadings allReadingTypes[static_cast<int>(ReadingTypes::Total_Count)];
 };
 
 OurSavedReadings::Impl::Impl()
   : allReadingTypes {
-    GeneralReadings(-300.0),  // temperature readings
+    GenericReadings(-300.0),  // temperature readings
   }
 {
 }
