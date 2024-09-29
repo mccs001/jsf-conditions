@@ -37,7 +37,7 @@ void OurPages::toggleCurrentPage()
   m_currentPageIndex = (m_currentPageIndex + 1) % s_numPages;
 }
 
-void OurPages::drawCurrentPage(OurSavedTemperatures& ourSavedTemperatures)
+void OurPages::drawCurrentPage(OurSavedReadings& ourSavedTemperatures)
 {
   s_ourPages[m_currentPageIndex]->drawPage(s_tft, ourSavedTemperatures);
 }

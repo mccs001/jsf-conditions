@@ -1,13 +1,13 @@
 #include "OurPages_SummaryView.h"
-#include "OurSavedTemperatures.h"
+#include "OurSavedReadings.h"
 
 
-void OurPages_SummaryView::drawPage(TFT_eSPI& tft, OurSavedTemperatures& ourSavedTemperatures)
+void OurPages_SummaryView::drawPage(TFT_eSPI& tft, OurSavedReadings& ourSavedReadings)
 {
-  double temp2 = ourSavedTemperatures.getLatestInsideReading();
-  double temp1 = ourSavedTemperatures.getLatestOutsideReading();
-  double min1 = ourSavedTemperatures.getMinReading();
-  double max1 = ourSavedTemperatures.getMaxReading();
+  double temp2 = ourSavedReadings.getLatestInsideReading(OurSavedReadings::ReadingTypes::Temperature);
+  double temp1 = ourSavedReadings.getLatestOutsideReading(OurSavedReadings::ReadingTypes::Temperature);
+  double min1 = ourSavedReadings.getMinReading(OurSavedReadings::ReadingTypes::Temperature);
+  double max1 = ourSavedReadings.getMaxReading(OurSavedReadings::ReadingTypes::Temperature);
 
   // don't support humidity or pressure yet
   double h1 = 0.0;

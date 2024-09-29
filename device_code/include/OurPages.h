@@ -1,7 +1,7 @@
 #ifndef _OURPAGES_H_
 #define _OURPAGES_H_
 
-class OurSavedTemperatures;
+class OurSavedReadings;
 
 class OurPages
 {
@@ -11,7 +11,7 @@ public:
   void onSetup();
 
   void toggleCurrentPage();
-  void drawCurrentPage(OurSavedTemperatures& ourSavedTemperatures);
+  void drawCurrentPage(OurSavedReadings& ourSavedTemperatures);
 
 private:
   int m_currentPageIndex;

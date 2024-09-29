@@ -1,5 +1,5 @@
 #include "OurPages_GraphView.h"
-#include "OurSavedTemperatures.h"
+#include "OurSavedReadings.h"
 #include "orb.h"
 
 // the contents of this file are mostly copied from the original BTC price tracker project
@@ -13,7 +13,7 @@
 double last = 0.0;
 int fromtop = 60;
 
-void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedTemperatures &ourSavedTemperatures)
+void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadings)
 {
 
   tft.fillScreen(TFT_BLACK);
@@ -41,7 +41,7 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedTemperatures &ourSavedT
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
 
   // current = v.toDouble();
-  double current = ourSavedTemperatures.getLatestInsideReading();
+  double current = ourSavedReadings.getLatestInsideReading(OurSavedReadings::ReadingTypes::Temperature);
 
   tft.drawString("PRICE (usd):", 4, fromtop + 4, 2);
   tft.drawString("CHANGE:", 4, fromtop + 32 + 8, 2);
@@ -57,7 +57,7 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedTemperatures &ourSavedT
   tft.setTextFont(1);
 
   char readingBuff[255] = { 0 };
-  sprintf(readingBuff, "LAST %d READINGS", OurSavedTemperatures::ms_MAX_NUM_READINGS);
+  sprintf(readingBuff, "LAST %d READINGS", OurSavedReadings::ms_MAX_NUM_READINGS);
   tft.drawString(readingBuff, 118, 6);
   tft.setTextColor(TFT_ORANGE, TFT_BLACK);
   tft.setTextFont(1);
@@ -65,18 +65,18 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedTemperatures &ourSavedT
   tft.drawString("MIN", 94, 122, 1);
   last = current;
 
-  double minimal = ourSavedTemperatures.getMinReading();
-  double maximal = ourSavedTemperatures.getMaxReading();
+  double minimal = ourSavedReadings.getMinReading(OurSavedReadings::ReadingTypes::Temperature);
+  double maximal = ourSavedReadings.getMaxReading(OurSavedReadings::ReadingTypes::Temperature);
 
   int mx = maximal / 2;
   int mi = minimal / 2;
 
-  int n = ourSavedTemperatures.getNumReadings();
-  double p[OurSavedTemperatures::ms_MAX_NUM_READINGS];
+  int n = ourSavedReadings.getNumReadings();
+  double p[OurSavedReadings::ms_MAX_NUM_READINGS];
 
   for (int i = 0; i < n; i++)
   {
-    int re = ourSavedTemperatures.getInsideReading(i) / 2;
+    int re = ourSavedReadings.getInsideReading(OurSavedReadings::ReadingTypes::Temperature, i) / 2;
     p[i] = map(re, mi, mx, 0, 100);
 
     // Serial.println(p[i]);

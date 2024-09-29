@@ -1,22 +1,22 @@
-#include "OurSavedTemperatures.h"
+#include "OurSavedReadings.h"
 
 #include <algorithm>
 
 
 static const double S_INVALID_TEMPERATURE = -300.0;
 
-OurSavedTemperatures::OurSavedTemperatures()
+OurSavedReadings::OurSavedReadings()
 {
   clearReadings();
 }
 
-void OurSavedTemperatures::clearReadings()
+void OurSavedReadings::clearReadings()
 {
   m_numReadings = 0;
   m_currentMinReading = m_currentMaxReading = S_INVALID_TEMPERATURE;
 }
 
-void OurSavedTemperatures::addReadings(double insideTemp, double outsideTemp)
+void OurSavedReadings::addReadings(double insideTemp, double outsideTemp)
 {
   if (m_numReadings < ms_MAX_NUM_READINGS)
   {
@@ -53,12 +53,12 @@ void OurSavedTemperatures::addReadings(double insideTemp, double outsideTemp)
   }
 }
 
-int OurSavedTemperatures::getNumReadings()
+int OurSavedReadings::getNumReadings()
 {
   return m_numReadings;
 }
 
-double OurSavedTemperatures::getInsideReading(int index)
+double OurSavedReadings::getInsideReading(ReadingTypes readingType, int index)
 {
   if (index >= m_numReadings)
   {
@@ -69,7 +69,7 @@ double OurSavedTemperatures::getInsideReading(int index)
   return m_insideReadings[index];
 }
 
-double OurSavedTemperatures::getOutsideReading(int index)
+double OurSavedReadings::getOutsideReading(ReadingTypes readingType, int index)
 {
   if (index >= m_numReadings)
   {
@@ -80,7 +80,7 @@ double OurSavedTemperatures::getOutsideReading(int index)
   return m_outsideReadings[index];
 }
 
-double OurSavedTemperatures::getLatestInsideReading()
+double OurSavedReadings::getLatestInsideReading(ReadingTypes readingType)
 {
   if (m_numReadings == 0)
   {
@@ -91,7 +91,7 @@ double OurSavedTemperatures::getLatestInsideReading()
   return m_insideReadings[m_numReadings - 1];
 }
 
-double OurSavedTemperatures::getLatestOutsideReading()
+double OurSavedReadings::getLatestOutsideReading(ReadingTypes readingType)
 {
   if (m_numReadings == 0)
   {
@@ -104,12 +104,12 @@ double OurSavedTemperatures::getLatestOutsideReading()
 
 
 
-double OurSavedTemperatures::getMinReading()
+double OurSavedReadings::getMinReading(ReadingTypes readingType)
 {
   return m_currentMinReading;
 }
 
-double OurSavedTemperatures::getMaxReading()
+double OurSavedReadings::getMaxReading(ReadingTypes readingType)
 {
   return m_currentMaxReading;
 }

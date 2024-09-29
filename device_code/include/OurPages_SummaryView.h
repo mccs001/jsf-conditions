@@ -6,7 +6,7 @@
 class OurPages_SummaryView : public IOurPage
 {
 public:
-  void drawPage(TFT_eSPI& tft, OurSavedTemperatures& ourSavedTemperatures) override;
+  void drawPage(TFT_eSPI& tft, OurSavedReadings& ourSavedTemperatures) override;
 };
 
 #endif // _OURPAGES_SUMMMARYVIEW_H_

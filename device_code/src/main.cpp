@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <OneButton.h>
 
-#include "OurSavedTemperatures.h"
+#include "OurSavedReadings.h"
 #include "OurPages.h"
 #include "OurSensors.h"
 
@@ -14,7 +14,7 @@ OneButton g_button1(PIN_BUTTON_1, true);
 OneButton g_button2(PIN_BUTTON_2, true);
 
 
-OurSavedTemperatures g_ourSavedTemperatures;
+OurSavedReadings g_ourSavedReadings;
 OurSensors g_ourSensors;
 
 
@@ -34,7 +34,7 @@ void onPressButton1()
 
 void onLongPressButton2()
 {
-  g_ourSavedTemperatures.clearReadings();
+  g_ourSavedReadings.clearReadings();
   g_forceRefresh = true;
 }
 
@@ -74,7 +74,7 @@ void loop()
 
     if (g_ourSensors.tryToReadSensors(insideTemp, outsideTemp))
     {
-      g_ourSavedTemperatures.addReadings(insideTemp, outsideTemp);
+      g_ourSavedReadings.addReadings(insideTemp, outsideTemp);
       g_forceRefresh = true;
     }
     else
@@ -89,7 +89,7 @@ void loop()
 
     g_forceRefresh = false;
 
-    g_ourPages.drawCurrentPage(g_ourSavedTemperatures);
+    g_ourPages.drawCurrentPage(g_ourSavedReadings);
   }
   
 }

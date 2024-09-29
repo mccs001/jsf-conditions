@@ -3,13 +3,13 @@
 
 #include <TFT_eSPI.h>
 
-class OurSavedTemperatures;
+class OurSavedReadings;
 
 struct IOurPage
 {
   virtual ~IOurPage() { };
   // if we want to support other kinds of 
-  virtual void drawPage(TFT_eSPI& tft, OurSavedTemperatures& ourSavedTemperatures) = 0;
+  virtual void drawPage(TFT_eSPI& tft, OurSavedReadings& ourSavedTemperatures) = 0;
 };
 
 
