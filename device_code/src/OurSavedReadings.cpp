@@ -152,7 +152,7 @@ double GenericReadings::getMaxReading()
 
 
 
-// Definition of the internal state held by each GenericReadings instance
+// Definition of the internal state held by each OurSavedReadings instance
 // we store a GenericReadings object for each type of reading that we support
 struct OurSavedReadings::Impl
 {
