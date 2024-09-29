@@ -7,21 +7,26 @@ static const double S_INVALID_TEMPERATURE = -300.0;
 
 OurSavedReadings::OurSavedReadings()
 {
-  clearReadings();
+  clearAllReadings();
 }
 
-void OurSavedReadings::clearReadings()
+void OurSavedReadings::clearAllReadings()
+{
+  clearReadings(ReadingTypes::Temperature);
+}
+
+void OurSavedReadings::clearReadings(ReadingTypes readingType)
 {
   m_numReadings = 0;
   m_currentMinReading = m_currentMaxReading = S_INVALID_TEMPERATURE;
 }
 
-void OurSavedReadings::addReadings(double insideTemp, double outsideTemp)
+void OurSavedReadings::addReadings(ReadingTypes readingType, double insideReading, double outsideReading)
 {
   if (m_numReadings < ms_MAX_NUM_READINGS)
   {
-    m_insideReadings[m_numReadings] = insideTemp;
-    m_outsideReadings[m_numReadings] = outsideTemp;
+    m_insideReadings[m_numReadings] = insideReading;
+    m_outsideReadings[m_numReadings] = outsideReading;
     ++m_numReadings;
   }
   else
@@ -34,12 +39,12 @@ void OurSavedReadings::addReadings(double insideTemp, double outsideTemp)
       m_insideReadings[targetIndex] = m_insideReadings[sourceIndex];
       m_outsideReadings[targetIndex] = m_outsideReadings[sourceIndex];
     }
-    m_insideReadings[lastIndex] = insideTemp;
-    m_outsideReadings[lastIndex] = outsideTemp;
+    m_insideReadings[lastIndex] = insideReading;
+    m_outsideReadings[lastIndex] = outsideReading;
   }
 
-  double minFromThePair = std::min(insideTemp, outsideTemp);
-  double maxFromThePair = std::max(insideTemp, outsideTemp);
+  double minFromThePair = std::min(insideReading, outsideReading);
+  double maxFromThePair = std::max(insideReading, outsideReading);
 
   if (m_numReadings == 1)
   {
@@ -53,7 +58,7 @@ void OurSavedReadings::addReadings(double insideTemp, double outsideTemp)
   }
 }
 
-int OurSavedReadings::getNumReadings()
+int OurSavedReadings::getNumReadings(ReadingTypes readingType)
 {
   return m_numReadings;
 }

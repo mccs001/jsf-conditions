@@ -6,15 +6,19 @@ class OurSavedReadings
 public:
   enum class ReadingTypes
   {
-    Temperature
+    Temperature,
+    
+    Total_Count
   };
 
   OurSavedReadings();
 
-  void clearReadings();
+  void clearAllReadings();
 
-  void addReadings(double insideTemp, double outsideTemp);
-  int getNumReadings();
+  void clearReadings(ReadingTypes readingType);
+
+  void addReadings(ReadingTypes readingType, double insideReading, double outsideReading);
+  int getNumReadings(ReadingTypes readingType);
 
   double getLatestInsideReading(ReadingTypes readingType);
   double getLatestOutsideReading(ReadingTypes readingType);

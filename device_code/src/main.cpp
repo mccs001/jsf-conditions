@@ -34,7 +34,7 @@ void onPressButton1()
 
 void onLongPressButton2()
 {
-  g_ourSavedReadings.clearReadings();
+  g_ourSavedReadings.clearAllReadings();
   g_forceRefresh = true;
 }
 
@@ -74,7 +74,7 @@ void loop()
 
     if (g_ourSensors.tryToReadSensors(insideTemp, outsideTemp))
     {
-      g_ourSavedReadings.addReadings(insideTemp, outsideTemp);
+      g_ourSavedReadings.addReadings(OurSavedReadings::ReadingTypes::Temperature, insideTemp, outsideTemp);
       g_forceRefresh = true;
     }
     else

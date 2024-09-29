@@ -71,7 +71,7 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadi
   int mx = maximal / 2;
   int mi = minimal / 2;
 
-  int n = ourSavedReadings.getNumReadings();
+  int n = ourSavedReadings.getNumReadings(OurSavedReadings::ReadingTypes::Temperature);
   double p[OurSavedReadings::ms_MAX_NUM_READINGS];
 
   for (int i = 0; i < n; i++)
