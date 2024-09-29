@@ -163,6 +163,8 @@ struct OurSavedReadings::Impl
 OurSavedReadings::Impl::Impl()
   : allReadingTypes {
     GenericReadings(-300.0),  // temperature readings
+    GenericReadings(-400.0),  // pressure readings
+    GenericReadings(-500.0),  // humidity readings
   }
 {
 }

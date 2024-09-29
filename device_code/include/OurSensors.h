@@ -8,7 +8,11 @@ public:
 
   void onSetup();
 
-  bool tryToReadSensors(double& insideTemperature, double& outsideTemperature);
+  bool tryToReadSensors(
+    double& insideTemperature, double& outsideTemperature,
+    double& insidePressure, double& outsidePressure,
+    double& insideHumidity, double& outsideHumidity
+  );
 };
 
 

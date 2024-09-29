@@ -72,9 +72,21 @@ void loop()
     double insideTemp = 0.0;
     double outsideTemp = 0.0;
 
-    if (g_ourSensors.tryToReadSensors(insideTemp, outsideTemp))
+    double insidePressure = 0.0;
+    double outsidePressure = 0.0;
+
+    double insideHumidity = 0.0;
+    double outsideHumidity = 0.0;
+
+    if (g_ourSensors.tryToReadSensors(
+      insideTemp, outsideTemp,
+      insidePressure, outsidePressure,
+      insideHumidity, outsideHumidity
+    ))
     {
       g_ourSavedReadings.addReadings(OurSavedReadings::ReadingTypes::Temperature, insideTemp, outsideTemp);
+      g_ourSavedReadings.addReadings(OurSavedReadings::ReadingTypes::Pressure, insidePressure, outsidePressure);
+      g_ourSavedReadings.addReadings(OurSavedReadings::ReadingTypes::Humidity, insideHumidity, outsideHumidity);
       g_forceRefresh = true;
     }
     else

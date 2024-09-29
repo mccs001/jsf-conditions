@@ -12,6 +12,8 @@ public:
   enum class ReadingTypes
   {
     Temperature,
+    Pressure,
+    Humidity,
     
     Total_Count
   };

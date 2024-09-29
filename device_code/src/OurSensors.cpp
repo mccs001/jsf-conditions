@@ -81,12 +81,22 @@ static double getRandomTempChange()
   return ((double)(random(21) - 10)) / 10.0;
 }
 
-bool OurSensors::tryToReadSensors(double &insideTemperature, double &outsideTemperature)
+bool OurSensors::tryToReadSensors(
+    double& insideTemperature, double& outsideTemperature,
+    double& insidePressure, double& outsidePressure,
+    double& insideHumidity, double& outsideHumidity
+  )
 {
   // should really check bme1Detected and bme2Detected ...
 
   insideTemperature = bme2.readTempC();
   outsideTemperature = bme1.readTempC();
+
+  insidePressure = bme2.readPressure();
+  outsidePressure = bme1.readPressure();
+
+  insideHumidity = bme2.readHumidity();
+  outsideHumidity = bme2.readHumidity();
 
   return true;
 }

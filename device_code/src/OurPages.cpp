@@ -12,8 +12,14 @@ TFT_eSPI s_tft;
 // for now keep a filescope collection of available pages (sadly no std::make_unique)...
 static const std::unique_ptr<IOurPage> s_ourPages[] = 
 {
-  std::unique_ptr<IOurPage>(new OurPages_GraphView(OurSavedReadings::ReadingTypes::Temperature, "Temperatures")),
   std::unique_ptr<IOurPage>(new OurPages_SummaryView(OurSavedReadings::ReadingTypes::Temperature, "Temperatures")),
+  std::unique_ptr<IOurPage>(new OurPages_GraphView(OurSavedReadings::ReadingTypes::Temperature, "Temperatures")),
+
+  std::unique_ptr<IOurPage>(new OurPages_SummaryView(OurSavedReadings::ReadingTypes::Pressure, "Pressures")),
+  std::unique_ptr<IOurPage>(new OurPages_GraphView(OurSavedReadings::ReadingTypes::Pressure, "Pressuress")),
+
+  std::unique_ptr<IOurPage>(new OurPages_SummaryView(OurSavedReadings::ReadingTypes::Humidity, "Humidities")),
+  std::unique_ptr<IOurPage>(new OurPages_GraphView(OurSavedReadings::ReadingTypes::Humidity, "Humidities")),
 };
 
 static const int s_numPages = sizeof(s_ourPages) / sizeof(s_ourPages[0]);
