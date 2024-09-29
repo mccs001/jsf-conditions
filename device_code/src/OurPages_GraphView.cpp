@@ -55,7 +55,10 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedTemperatures &ourSavedT
   tft.drawString(String(current - last), 4, fromtop + 46 + 10, 2);
   tft.setTextColor(0x0B52, TFT_BLACK);
   tft.setTextFont(1);
-  tft.drawString("LAST 12 READINGS", 118, 6);
+
+  char readingBuff[255] = { 0 };
+  sprintf(readingBuff, "LAST %d READINGS", OurSavedTemperatures::ms_MAX_NUM_READINGS);
+  tft.drawString(readingBuff, 118, 6);
   tft.setTextColor(TFT_ORANGE, TFT_BLACK);
   tft.setTextFont(1);
   tft.drawString("MAX", 94, 16);
@@ -69,7 +72,7 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedTemperatures &ourSavedT
   int mi = minimal / 2;
 
   int n = ourSavedTemperatures.getNumReadings();
-  double p[12];
+  double p[OurSavedTemperatures::ms_MAX_NUM_READINGS];
 
   for (int i = 0; i < n; i++)
   {

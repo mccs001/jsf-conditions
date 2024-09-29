@@ -20,9 +20,11 @@ public:
   double getMinReading();
   double getMaxReading();
 
+  static const int ms_MAX_NUM_READINGS = 12;
+
 private:
   // could use vectors instead of arrays (which would give some extra conveniences too but stick with array to keep things simple)
-  static const int ms_MAX_NUM_READINGS = 12;
+  
   int m_numReadings;
 
   double m_insideReadings[ms_MAX_NUM_READINGS];
