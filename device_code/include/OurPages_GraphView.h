@@ -12,6 +12,7 @@ public:
 private:
   OurSavedReadings::ReadingTypes m_readingType;
   std::string m_pageName;
+  double m_last;
 };
 
 #endif // _OURPAGES_GRAPHVIEW_H_

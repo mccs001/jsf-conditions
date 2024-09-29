@@ -10,18 +10,16 @@
 #define purple 0xF14F
 #define green 0x2D51
 
-double last = 0.0;
-int fromtop = 60;
-
 
 OurPages_GraphView::OurPages_GraphView(OurSavedReadings::ReadingTypes readingType,  const char* pageName)
-  : m_readingType(readingType), m_pageName(pageName)
+  : m_readingType(readingType), m_pageName(pageName), m_last(0.0)
 {
 }
 
 
 void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadings)
 {
+  int fromtop = 60;
 
   tft.fillScreen(TFT_BLACK);
   // tft.fillRect(200,126,4,4,TFT_GREEN);
@@ -59,7 +57,7 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadi
   tft.drawString("bitCoin", 4, 0);
   tft.setTextColor(green, TFT_BLACK);
 
-  tft.drawString(String(current - last), 4, fromtop + 46 + 10, 2);
+  tft.drawString(String(current - m_last), 4, fromtop + 46 + 10, 2);
   tft.setTextColor(0x0B52, TFT_BLACK);
   tft.setTextFont(1);
 
@@ -70,7 +68,7 @@ void OurPages_GraphView::drawPage(TFT_eSPI &tft, OurSavedReadings &ourSavedReadi
   tft.setTextFont(1);
   tft.drawString("MAX", 94, 16);
   tft.drawString("MIN", 94, 122, 1);
-  last = current;
+  m_last = current;
 
   double minimal = ourSavedReadings.getMinReading(m_readingType);
   double maximal = ourSavedReadings.getMaxReading(m_readingType);
