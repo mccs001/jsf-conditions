@@ -158,6 +158,8 @@ struct OurSavedReadings::Impl
 {
   Impl();
   GenericReadings allReadingTypes[static_cast<int>(ReadingTypes::Total_Count)];
+
+  GenericReadings& GetReadings(ReadingTypes readingType);
 };
 
 OurSavedReadings::Impl::Impl()
@@ -169,13 +171,20 @@ OurSavedReadings::Impl::Impl()
 {
 }
 
+GenericReadings& OurSavedReadings::Impl::GetReadings(ReadingTypes readingType)
+{
+  int index = static_cast<int>(readingType);
+  if ((index < 0) || (index >= static_cast<int>(ReadingTypes::Total_Count)))
+  {
+    throw std::invalid_argument("Bad index!");
+  }
+  return allReadingTypes[index];
+}
+
 
 
 // Finally, onto the implementation of the OurSavedReadings public interface
 ///////
-
-// Note that we don't do any validation of supplied reading types
-// so its's up to the caller to behave themselves
 
 OurSavedReadings::OurSavedReadings()
     : m_impl(new Impl() )
@@ -195,45 +204,45 @@ void OurSavedReadings::clearAllReadings()
 
 void OurSavedReadings::clearReadings(ReadingTypes readingType)
 {
-  m_impl->allReadingTypes[static_cast<int>(readingType)].clearReadings();
+  m_impl->GetReadings(readingType).clearReadings();
 }
 
 void OurSavedReadings::addReadings(ReadingTypes readingType, double insideReading, double outsideReading)
 {
-  m_impl->allReadingTypes[static_cast<int>(readingType)].addReadings(insideReading, outsideReading);
+  m_impl->GetReadings(readingType).addReadings(insideReading, outsideReading);
 }
 
 int OurSavedReadings::getNumReadings(ReadingTypes readingType)
 {
-  return m_impl->allReadingTypes[static_cast<int>(readingType)].getNumReadings();
+  return m_impl->GetReadings(readingType).getNumReadings();
 }
 
 double OurSavedReadings::getInsideReading(ReadingTypes readingType, int index)
 {
-  return m_impl->allReadingTypes[static_cast<int>(readingType)].getInsideReading(index);
+  return m_impl->GetReadings(readingType).getInsideReading(index);
 }
 
 double OurSavedReadings::getOutsideReading(ReadingTypes readingType, int index)
 {
-  return m_impl->allReadingTypes[static_cast<int>(readingType)].getOutsideReading(index);
+  return m_impl->GetReadings(readingType).getOutsideReading(index);
 }
 
 double OurSavedReadings::getLatestInsideReading(ReadingTypes readingType)
 {
-  return m_impl->allReadingTypes[static_cast<int>(readingType)].getLatestInsideReading();
+  return m_impl->GetReadings(readingType).getLatestInsideReading();
 }
 
 double OurSavedReadings::getLatestOutsideReading(ReadingTypes readingType)
 {
-  return m_impl->allReadingTypes[static_cast<int>(readingType)].getLatestOutsideReading();
+  return m_impl->GetReadings(readingType).getLatestOutsideReading();
 }
 
 double OurSavedReadings::getMinReading(ReadingTypes readingType)
 {
-  return m_impl->allReadingTypes[static_cast<int>(readingType)].getMinReading();
+  return m_impl->GetReadings(readingType).getMinReading();
 }
 
 double OurSavedReadings::getMaxReading(ReadingTypes readingType)
 {
-  return m_impl->allReadingTypes[static_cast<int>(readingType)].getMaxReading();
+  return m_impl->GetReadings(readingType).getMaxReading();
 }
